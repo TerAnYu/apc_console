@@ -1,0 +1,11 @@
+[ssh]
+host = 192.168.0.2
+username = apc
+password = apc
+port = 22
+
+[poffdelay]
+# сколько процентов нагрузки считать минимумом
+target_va_percent = 2.0
+check_interval = 5
+max_wait_time = 300
