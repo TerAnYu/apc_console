@@ -1,3 +1,4 @@
+import os
 import configparser
 import sys
 import paramiko
@@ -5,12 +6,22 @@ import time
 import logging
 import re
 
+import functools
+builtins_print = print
+print = functools.partial(builtins_print, flush=True)
+
 logging.basicConfig(level=logging.WARNING)
 
 
 class APCController:
-    def __init__(self, config_path='config.ini'):
-        self.config_path = config_path
+    def __init__(self, config_path=None):
+        if config_path is None:
+            # Определяем путь к config.ini в той же папке, где лежит скрипт
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            self.config_path = os.path.join(script_dir, 'config.ini')
+        else:
+            self.config_path = config_path
+
         self.host = None
         self.port = None
         self.username = None
